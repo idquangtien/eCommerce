@@ -10,6 +10,10 @@
     --link: var(--primary);
     --light: #f0f8f7;
     --black: black;
+
+    --ff1: 'Nunito';
+
+    --br1: 0.5rem; 
 }
 *, *:before, *::after {
     box-sizing: inherit;
@@ -83,8 +87,9 @@ img {
 }
 
 .form-control {
-    background-color: transparent;
     border: none;
+
+    border-radius: var(--br1);
 
     display: block;
 
@@ -94,26 +99,29 @@ img {
     padding: 0 1rem;
 
     font-size: 1rem;
+    font-family: var(--ff1);
 }
 .form-control:focus {
     outline: none;
 }
 .input, .textarea {
     border: 1px solid var(--border-color);
-    border-radius: 0.5rem;
+    border-radius: var(--br1);
+    background-color: white;
 }
 .input:focus-within, .textarea:focus-within {
     border-color: var(--primary);
 }
 .input--icon {
     display: flex;
-    align-items: center;
-    
 }
 .input--icon .form-control {
     flex: 1;
 }
 .input--icon .icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     padding: 0 1rem;
     color: var(--muted);
 }
@@ -146,6 +154,7 @@ textarea.form-control {
     border-radius: 2.5rem;
 
     font-size: 1rem;
+    font-family: var(--ff1);
     font-weight: bold;
 
     cursor: pointer;
@@ -159,7 +168,8 @@ textarea.form-control {
     background-color: var(--primary);
 }
 .btn--secondary {
-    background-color: var(--secondary);    
+    border-color: var(--primary);   
+    color: var(--primary); 
 }
 .btn--warning {
     background-color: var(--warning);    
@@ -322,6 +332,11 @@ textarea.form-control {
 }
 .table tbody tr:last-child td:last-child {
     border-bottom-right-radius: .5rem;
+}
+
+.table-container {
+    background-color: #fff;
+    border-radius: var(--br1);
 }
 
 
