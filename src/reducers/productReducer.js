@@ -3,7 +3,9 @@ import * as types from '../constants/ActionTypes';
 const initialState = {
     list: [],
     item: {},
-    id: null
+    id: null,
+    inputSearch: '',
+    loading: false
 };
 const productReducer = (state = initialState, action) => {
     switch(action.type) {
@@ -26,7 +28,7 @@ const productReducer = (state = initialState, action) => {
             };
         case types.UPDATE_PRODUCT:
             const listUpdate = state.list;
-            const {id, name, sku, type, price, desc} = action.payload;
+            const { id, name, sku, type, price, desc } = action.payload;
             listUpdate.forEach(item => {
                 if(item.id === id) {
                     item.sku = sku;
@@ -40,6 +42,24 @@ const productReducer = (state = initialState, action) => {
                 ...state,
                 list: listUpdate
             };
+        case types.DELETE_PRODUCT: 
+            const listDelete = state.list;
+            const idDelete = action.payload;
+            const dataDelete = listDelete.filter(i => (i.id).toString() !== idDelete.toString());
+            return {
+                ...state,
+                list: dataDelete
+            };
+        case types.SEARCH_PRODUCT_BY_NAME:
+            return {
+                ...state,
+                inputSearch: action.payload
+            }
+        case types.LOADING:
+            return {
+                ...state,
+                loading: action.payload
+            }
         default: 
             return state;
     }

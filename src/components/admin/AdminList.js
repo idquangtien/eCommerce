@@ -1,10 +1,10 @@
 import React from 'react';
-import CellProduct from './AdminItem';
+import AdminItem from './AdminItem';
 
 const AdminList = ({list}) => {
     const html = list && list.length > 0 ? 
         list.map((item, index) => {
-            return <CellProduct key={index} index={index + 1} item={item}/>;
+            return <AdminItem key={index} index={index + 1} item={item}/>;
         }) : 
         <tr>
             <td></td>

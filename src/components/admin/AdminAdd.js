@@ -24,19 +24,10 @@ const AdminAdd = () => {
             [name]: e.target.value
         });
     }
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        dispatch(addProduct(newProduct));
-
-        let localProducts;
-        if (localStorage.getItem("products")) {
-            localProducts = JSON.parse(localStorage.getItem("products"));
-        } else {
-            localProducts = [];
-        }
-        localProducts.push(newProduct);
-        localStorage.setItem("products", JSON.stringify(localProducts));
-
+        await dispatch(addProduct(newProduct));
+        
         history.push("/admin");
     }
     return (

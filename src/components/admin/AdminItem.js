@@ -1,15 +1,22 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
+
 import { Link, useHistory } from 'react-router-dom';
-import { getProductItem } from '../../actions/productAction';
+import { deleteProduct } from '../../actions/productAction';
 
 
-const CellProduct = ({item, index}) => {
-    const dispatch = useDispatch();
+const AdminItem = ({item, index}) => {
     const history = useHistory();
-    const handleUpdate = async (id) => {
-        await dispatch(getProductItem(id));
+    const dispatch = useDispatch();
+
+    const handleUpdate = (id) => {
         history.push(`/admin/update/${id}`);
+    }
+    const handleDelete = async (id) => {
+        const confirm = window.confirm(`Will you delete the ${item.name} ?`);
+        if(confirm) {
+            await dispatch(deleteProduct(id));
+        }
     }
     const html = item ? 
         <tr>
@@ -26,12 +33,14 @@ const CellProduct = ({item, index}) => {
             <td width="1">
                 <span
                     onClick={() => handleUpdate(item.id)}
-                    className="text-warning">
+                    className="text-warning pointer">
                         <i className="fas fa-pen"></i>
                 </span>
             </td>
             <td width="1">
-                <span className="text-danger pointer">
+                <span
+                    onClick={() => handleDelete(item.id)} 
+                    className="text-danger pointer">
                     <i className="fas fa-trash"></i>
                 </span>
             </td>
@@ -40,4 +49,4 @@ const CellProduct = ({item, index}) => {
     return html;
 }
 
-export default CellProduct;
+export default AdminItem;

@@ -2,33 +2,49 @@ import React, { useEffect } from 'react';
 import AdminList from './components/admin/AdminList';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { getProductList } from './actions/productAction';
+import { getProductList, searchProduct } from './actions/productAction';
+// import Alert from './components/common/Alert';
 
 const Admin = () => {
-    const list = useSelector(state => state.products.list);
     const dispatch = useDispatch();
+    const inputSearch = useSelector(state => state.products.inputSearch || "");
+
+    const list = useSelector(state => {
+        return state.products.list.filter(i => i.name.includes(inputSearch))
+    });
+
     const html = list.length > 0 ?
             <AdminList list={list}/>
-            : 'There is no data';
+            : <div className="pa05rem">There is no data</div>;
+
+
+    const handleSearch = (e) => {
+        e.preventDefault();
+        const dataSearch = e.target.querySelector("input").value || '';
+        dispatch(searchProduct(dataSearch));
+    }
+    
     useEffect(() => {
-        dispatch(getProductList());
-    },[]);
+        dispatch(getProductList())
+            .then(e => console.log(e));
+    },[dispatch]);
     return (
         <section className="section">
             <div className="container">
                 <div className="section__header">
-                    <h1>Product list</h1>
+                    <h1 className="h1">Product list</h1>
                 </div>
                 <div className="section__body">
                     <div className="filter">
                         <div className="filter__left">
                             <form 
                                 className="form flex"
+                                onSubmit={handleSearch}
                             >
                                 <div className="input input--icon">
                                     <input type="text" 
+                                        name="inputName"
                                         className="form-control"
-                                        id="inputTextSearch"
                                         placeholder="Fitler name"
                                     />
                                     <span className="icon">
@@ -54,6 +70,12 @@ const Admin = () => {
                     </div>
                     <div className="table-container mt1rem">
                         {html}
+                        {/* <Alert 
+                            active={true}
+                            type="success"
+                            title="Thành công rồi"
+                            desc="Cập nhật thành công"
+                            /> */}
                     </div>
                 </div>
             </div>
