@@ -20,7 +20,8 @@ const Product = ({item}) => {
                 <blockquote className="product__desc">
                 </blockquote>
                 <div className="product__price">
-                    {item.price}
+                    <u>đ</u>
+                    <span>{item.price}</span>
                 </div>
             </div>
         </div>

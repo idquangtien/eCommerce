@@ -2,11 +2,11 @@ import React from 'react';
 import SectionHero from './components/common/SectionHero';
 
 
-const Home = () => {
+const Account = () => {
     return (
         <React.Fragment>
             <SectionHero 
-                title="Home page" 
+                title="Account" 
                 desc="description"
                 bg="./img/hero_1.jpeg"
             />
@@ -21,4 +21,4 @@ const Home = () => {
     );
 }
 
-export default Home;
+export default Account;
