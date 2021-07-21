@@ -72,10 +72,6 @@ const productReducer = (state = initialState, action) => {
                 ...state,
                 sort: action.payload
             }
-        case types.GET_CART_LOCAL:
-            return {
-                ...state,
-            }
         
         default: 
             return state;

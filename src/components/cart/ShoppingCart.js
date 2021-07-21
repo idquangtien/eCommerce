@@ -1,19 +1,20 @@
-import React from 'react';
-import { parse } from 'uuid';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { setCart } from '../../actions/cartAction';
 
 import SectionHero from '../common/SectionHero';
+import SummaryCart from './SummaryCart';
 import TableCart from './TableCart';
 
 
 const ShoppingCart = () => {
-    const carts = JSON.parse(localStorage.getItem("carts")) || [];
-    let subtotal = 0;
-    console.log('carts', carts);
-    if(carts && carts.length > 0) {
-        carts.forEach(cart => {
-            subtotal += (parseInt(cart.price) * parseInt(cart.quantity))
-        })
-    } 
+    const dispatch = useDispatch();
+    let cartLocal = JSON.parse(localStorage.getItem("carts")) || [];
+    const carts = useSelector(state => state.carts.list);
+
+    useEffect(() => {
+        dispatch(setCart(cartLocal));
+    },[dispatch]);
     return (
         <React.Fragment>
             <SectionHero 
@@ -25,24 +26,15 @@ const ShoppingCart = () => {
                 <div className="container">
                     <div className="shopping-cart">
                         <div className="shopping-cart__left">
-                            <h2 className="h2">Your cart</h2>
+                            <div className="flex flex-middle">
+                                <h2 className="h2">Your cart</h2>
+                                <div className="ml1rem">{carts.length || 0} item(s)</div>
+                            </div>
                             <TableCart carts={carts}/>
                         </div>
                         <div className="shopping-cart__right">
                             <h2 className="h2">Summary</h2>
-                            <div className="summary mt1rem">
-                                <div className="summary__row">
-                                    <div className="summary__label">Subsummary</div>
-                                    <div className="summary__number">
-                                        <span>đ</span>
-                                        <span>{subtotal}</span>
-                                    </div>
-                                </div>
-                                <div className="summary__row">
-                                    <div className="summary__label">Subsummary</div>
-                                    <div className="summary__number">đ0.00</div>
-                                </div>
-                            </div>
+                            <SummaryCart carts={carts}/>
                         </div>
                     </div>
                 </div>

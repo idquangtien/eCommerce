@@ -1,15 +1,15 @@
 import * as types from '../constants/ActionTypes';
 
 const initialState = {
-    carts: []
+    list: []
 }
 
 const cartReducer = (state = initialState, action) => {
     switch(action.type){
-        case types.GET_CART_LOCAL:
+        case types.SET_CART:
             return {
                 ...state,
-                carts: action.payload
+                list: action.payload
             }
         default: 
             return state;

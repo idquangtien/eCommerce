@@ -12,6 +12,7 @@ import Admin from './Admin';
 import AdminAdd from './components/admin/AdminAdd';
 import AdminUpdate from './components/admin/AdminUpdate';
 import ShoppingCart from './components/cart/ShoppingCart';
+import Checkout from './Checkout';
 
 function App() {
     return (
@@ -26,6 +27,7 @@ function App() {
                 <Route path="/admin/add" component={AdminAdd}/>
                 <Route path="/admin/update/:id" component={AdminUpdate}/>
                 <Route path="/shopping-cart" component={ShoppingCart}/>
+                <Route path="/checkout" component={Checkout}/>
             </Switch>
         </Router>
     );

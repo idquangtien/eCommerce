@@ -1,8 +1,8 @@
 import * as types from '../constants/ActionTypes';
 
-export const getCartLocal = (carts) => {
+export const setCart = (carts) => {
     return {
-        type: types.GET_CART_LOCAL,
+        type: types.SET_CART,
         payload: carts
     }
 }

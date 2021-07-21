@@ -4,7 +4,7 @@ import { getProductItem } from '../../actions/productAction';
 import SectionHero from '../common/SectionHero';
 import _ from 'lodash';
 import { useHistory } from 'react-router-dom';
-import { getCartLocal } from '../../actions/cartAction';
+
 
 const ProductDetail = ({ match }) => {
     const dispatch = useDispatch();
@@ -34,7 +34,6 @@ const ProductDetail = ({ match }) => {
         }
 
         localStorage.setItem("carts", JSON.stringify(dataLocal));
-        dispatch(getCartLocal(dataLocal));
     }
     const handleBuyNow = () => {
         const dataLocal = JSON.parse(localStorage.getItem("carts")) || [];
@@ -45,11 +44,8 @@ const ProductDetail = ({ match }) => {
         } 
 
         localStorage.setItem("carts", JSON.stringify(dataLocal));
-        dispatch(getCartLocal(dataLocal));
         history.push("/shopping-cart");
     }
-
-
 
     const html = item ?
         <div className="productDetail">
