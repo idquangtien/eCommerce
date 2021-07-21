@@ -3,7 +3,6 @@ import Product from './Product';
 
 
 const ProductList = ({list}) => {
-    console.log('product list', list);
     const html = list && (list.length > 0) ? 
         <div className="products products--grid">
             {list.map((item, index) => <Product key={index} item={item}/>)}

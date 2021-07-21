@@ -8,7 +8,7 @@ const Product = ({item}) => {
     const html = item && (item !== {}) ? 
         <div className="product">
             <Link to={`/shop/${item && item.id ? item.id : ''}`} className="product__image">
-                <img src="" alt=""/>
+                <img src={`./img/${item.img}`} alt=""/>
             </Link>
             <div className="product__content">
                 <Link to={`/shop/${item && item.id ? item.id : ''}`} className="product__name">

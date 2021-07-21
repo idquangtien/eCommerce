@@ -2,7 +2,8 @@ import React, { useEffect } from 'react';
 import AdminList from './components/admin/AdminList';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { getProductList, searchProduct } from './actions/productAction';
+import { getProductList } from './actions/productAction';
+import FormSearch from './components/common/FormSearch';
 // import Alert from './components/common/Alert';
 
 const Admin = () => {
@@ -13,20 +14,17 @@ const Admin = () => {
         return state.products.list.filter(i => i.name.includes(inputSearch))
     });
 
+    
     const html = list.length > 0 ?
             <AdminList list={list}/>
             : <div className="pa05rem">There is no data</div>;
-
-
-    const handleSearch = (e) => {
-        e.preventDefault();
-        const dataSearch = e.target.querySelector("input").value || '';
-        dispatch(searchProduct(dataSearch));
-    }
     
     useEffect(() => {
+        
         dispatch(getProductList())
-            .then(e => console.log(e));
+            .then(e => {
+                
+            });
     },[dispatch]);
     return (
         <section className="section">
@@ -37,27 +35,7 @@ const Admin = () => {
                 <div className="section__body">
                     <div className="filter">
                         <div className="filter__left">
-                            <form 
-                                className="form flex"
-                                onSubmit={handleSearch}
-                            >
-                                <div className="input input--icon">
-                                    <input type="text" 
-                                        name="inputName"
-                                        className="form-control"
-                                        placeholder="Fitler name"
-                                    />
-                                    <span className="icon">
-                                        <i className="fas fa-search"></i>
-                                    </span>
-                                </div>
-                                <button 
-                                    type="submit"
-                                    className="btn btn--secondary ml1rem"
-                                >
-                                    Search
-                                </button>
-                            </form>
+                            <FormSearch />
                         </div>
                         <div className="filter__right">
                             <Link to="/admin/add"

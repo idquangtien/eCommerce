@@ -5,7 +5,9 @@ const initialState = {
     item: {},
     id: null,
     inputSearch: '',
-    loading: false
+    loading: false,
+    filterByType: "",
+    sort: {},
 };
 const productReducer = (state = initialState, action) => {
     switch(action.type) {
@@ -60,6 +62,21 @@ const productReducer = (state = initialState, action) => {
                 ...state,
                 loading: action.payload
             }
+        case types.FILTER_BY_TYPE:
+            return {
+                ...state,
+                filterByType: action.payload
+            }
+        case types.SORT_PRODUCT:
+            return {
+                ...state,
+                sort: action.payload
+            }
+        case types.GET_CART_LOCAL:
+            return {
+                ...state,
+            }
+        
         default: 
             return state;
     }

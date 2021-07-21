@@ -11,6 +11,7 @@ const AdminAdd = () => {
 
     const [newProduct, setNewProduct] = useState({
         id: uuidv4(),
+        img: "",
         sku: "",
         name: "",
         price: 0,
@@ -39,6 +40,16 @@ const AdminAdd = () => {
                 <div className="section__body">
                     <form className="form w-50 mh-auto" onSubmit={handleSubmit}>
                         <div className="form__body">
+                            <div className="form-group mt1rem">
+                                <label className="control-label">Image</label>
+                                <div className="input">
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        onChange={e => handleChangeInput(e, 'img')}
+                                    />
+                                </div>
+                            </div>
                             <div className="form-group mt1rem">
                                 <label className="control-label">Name</label>
                                 <div className="input">

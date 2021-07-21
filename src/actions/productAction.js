@@ -72,3 +72,16 @@ export const searchProduct = (name) => {
         payload: name
     }
 }
+
+export const filterByType = (value) => {
+    return {
+        type: types.FILTER_BY_TYPE,
+        payload: value
+    }
+}
+export const sortProduct = (obj) => {
+    return {
+        type: types.SORT_PRODUCT,
+        payload: obj
+    }
+}

@@ -1,32 +1,22 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, useHistory, useParams } from 'react-router-dom';
-import { updateProduct } from '../../actions/productAction';
+import { getProductItem, updateProduct } from '../../actions/productAction';
 
 const AdminUpdate = () => {
-    const { id } = useParams();
-    let dataLocal = [];
-    let item = {};
-
-    
-    if(localStorage.getItem("products")) {
-        dataLocal = JSON.parse(localStorage.getItem("products"));
-        if(dataLocal.length > 0) {
-            dataLocal.forEach(i => {
-                if((i.id).toString() === id.toString()) {
-                    item = i;
-                }
-            })
-        }
-    }
-    
     const history = useHistory();
     const dispatch = useDispatch();
+    const { id } = useParams();
+    let item = useSelector(state => state.products.item);
+    
+    useEffect(() => {
+        dispatch(getProductItem(id.toString()));
+    },[dispatch, id]);
     
     const [dataUpdate, setDataUpdate] = useState({
         ...item
     });
-    const { sku, name, type, price, status, desc } = dataUpdate;
+    const { img, sku, name, type, price, status, desc } = dataUpdate;
     const handleChangeInput = (e, name) => {
         setDataUpdate({
             ...dataUpdate,
@@ -38,24 +28,6 @@ const AdminUpdate = () => {
         
         // update store
         dispatch(updateProduct(dataUpdate));
-
-        // update local storage
-        if(localStorage.getItem("products")) {
-            dataLocal = JSON.parse(localStorage.getItem("products"));
-            if(dataLocal.length > 0) {
-                dataLocal.forEach(i => {
-                    if((i.id).toString() === id.toString()) {
-                        i.sku = sku;
-                        i.name = name;
-                        i.type = type;
-                        i.price = price;
-                        i.status = status;
-                        i.desc = desc;
-                    }
-                })
-            }
-        }
-        localStorage.setItem("products", JSON.stringify(dataLocal));
 
         // direction list
         history.push('/admin');
@@ -69,6 +41,17 @@ const AdminUpdate = () => {
                 <div className="section__body">
                     <form className="form w-50 mh-auto" onSubmit={handleSubmit}>
                         <div className="form__body">
+                            <div className="form-group mt1rem">
+                                <label className="control-label">Image</label>
+                                <div className="input">
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        onChange={e => handleChangeInput(e, 'img')}
+                                        value={img}
+                                    />
+                                </div>
+                            </div>
                             <div className="form-group mt1rem">
                                 <label className="control-label">Name</label>
                                 <div className="input">
@@ -89,7 +72,7 @@ const AdminUpdate = () => {
                                                 type="text"
                                                 className="form-control"
                                                 onChange={e => handleChangeInput(e, 'sku')}
-                                                defaultValue={sku}
+                                                value={sku}
                                             />
                                         </div>
                                     </div>
@@ -100,7 +83,7 @@ const AdminUpdate = () => {
                                         <div className="input">
                                             <select className="form-control" 
                                                 onChange={e => handleChangeInput(e, 'type')}
-                                                defaultValue={type}
+                                                value={type}
                                             >
                                                 <option value="">Select type</option>
                                                 <option value="long">Long</option>
@@ -119,7 +102,7 @@ const AdminUpdate = () => {
                                                 type="number"
                                                 className="form-control"
                                                 onChange={e => handleChangeInput(e, 'price')}
-                                                defaultValue={price}
+                                                value={price}
                                             />
                                         </div>
                                     </div>
@@ -159,7 +142,7 @@ const AdminUpdate = () => {
                                         className="form-control"
                                         rows="3"
                                         onChange={e => handleChangeInput(e, 'desc')}
-                                        defaultValue={desc}
+                                        value={desc}
                                     >   
                                     </textarea>
                                 </div>
