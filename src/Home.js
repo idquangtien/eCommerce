@@ -1,5 +1,6 @@
 import React from 'react';
 import SectionHero from './components/common/SectionHero';
+import ProductsFeatured from './components/product/ProductsFeatured';
 
 
 const Home = () => {
@@ -13,7 +14,7 @@ const Home = () => {
             <section className="section">
                 <div className="container ph1rem">
                     <div className="section__body">
-                        nothing to do
+                        <ProductsFeatured />
                     </div>
                 </div>
             </section>

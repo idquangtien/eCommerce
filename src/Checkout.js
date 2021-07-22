@@ -1,18 +1,30 @@
-import React from 'react';
+import React, {useState} from 'react';
 import SectionHero from './components/common/SectionHero';
 import {Link} from 'react-router-dom';
 
 const Checkout = () => {
     const carts = JSON.parse(localStorage.getItem("carts")) || [];
-    const shippingFee = 0;
     let subtotal = 0;
+    const [dataForm, setDataForm] = useState({
+        
+    });
     if(carts && carts.length > 0) {
         carts.forEach(cart => {
             console.log(parseInt(cart.price), parseInt(cart.quantity));
             subtotal += (parseInt(cart.price) * parseInt(cart.quantity));
             console.log('subtotal',subtotal);
-        })
+        });
     } 
+    const handleChangeInput = (e, key) => {
+        setDataForm({
+            ...dataForm,
+            [key]: e.target.value
+        });
+    }
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        console.log(dataForm);
+    }
     return (
         <React.Fragment>
             <SectionHero 
@@ -22,7 +34,7 @@ const Checkout = () => {
             />
             <section className="section section--checkout">
                 <div className="container container--960px">
-                    <form className="form mt1rem ">
+                    <form className="form mt1rem" onSubmit={handleSubmit}>
                         <div className="form__body">
                             <div className="flex">
                                 <div className="flex-2">
@@ -40,6 +52,7 @@ const Checkout = () => {
                                                     <input type="text" 
                                                         className="form-control"
                                                         placeholder="Enter your fullname"
+                                                        onChange={(e) => handleChangeInput(e, "fullname")}
                                                     />
                                                 </div>
                                             </label>
@@ -51,6 +64,7 @@ const Checkout = () => {
                                                     <input type="text" 
                                                         className="form-control"
                                                         placeholder="Enter your phone"
+                                                        onChange={(e) => handleChangeInput(e, "phone")}
                                                     />
                                                 </div>
                                             </label>
@@ -62,6 +76,7 @@ const Checkout = () => {
                                             <textarea 
                                                 className="form-control"
                                                 placeholder="Enter your address"
+                                                onChange={(e) => handleChangeInput(e, "address")}
                                             />
                                         </div>
                                     </label>
@@ -72,9 +87,6 @@ const Checkout = () => {
                                     </div>
                                 </div>
                             </div>
-                            
-                            
-                            
                         </div>
                     </form>
                 </div>

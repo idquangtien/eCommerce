@@ -337,7 +337,7 @@ textarea.form-control {
     transition: .5s;
 }
 .product:hover .product__image img {
-    transform: rotate(10deg);
+    transform: translateY(1rem) scale(1.1);
 }
 .product__content {
     border-top: 4px solid var(--primary);
