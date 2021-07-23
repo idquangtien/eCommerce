@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React from 'react';
+import { connect } from 'react-redux';
 import Product from './Product';
 
 import SwiperCore, { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
@@ -12,41 +12,43 @@ import "swiper/components/pagination/pagination.scss";
 import "swiper/components/scrollbar/scrollbar.scss";
 // import "./Simple.css";
 
+SwiperCore.use([Navigation, Pagination, Scrollbar, A11y]);
 
-
-const ProductsFeatured = () => {
-    const dispatch = useDispatch();
-    const products = useSelector(state => state.products.list);
-    SwiperCore.use([Navigation, Pagination, Scrollbar, A11y]);
-
-    useEffect(() => {
-        dispatch(getProductList())
-    },[dispatch]);
-
-        
-        
-    return (
-        <React.Fragment>
-            <Swiper
-                spaceBetween={32}
-                slidesPerView={5}
-                navigation
-                pagination={{ clickable: true }}
-                onSlideChange={() => console.log('slide change')}
-                onSwiper={(swiper) => console.log(swiper)}
-            >
-                {
-                    products && products.length > 0 &&
-                    products.map((product, index) => 
-                        <SwiperSlide key={index}>
-                            <Product item={product}/>
-                        </SwiperSlide>
-                    )
-                }
-            </Swiper>
-            
-        </React.Fragment>
-    );
+class ProductsFeatured extends React.Component {
+    componentDidMount() {
+        this.props.getProductList();
+    }   
+    render(){
+        const products = this.props.products;
+        return (
+            <React.Fragment>
+                <Swiper
+                    spaceBetween={32}
+                    slidesPerView={5}
+                    navigation
+                    pagination={{ clickable: true }}
+                    onSlideChange={() => console.log('slide change')}
+                    onSwiper={(swiper) => console.log(swiper)}
+                >
+                    {
+                        products && products.length > 0 &&
+                        products.map((product, index) => 
+                            <SwiperSlide key={index}>
+                                <Product item={product}/>
+                            </SwiperSlide>
+                        )
+                    }
+                </Swiper>
+            </React.Fragment>
+        );
+    }
 }
 
-export default ProductsFeatured;
+const mapStateToProps = (state) => ({
+    products: state.products.list
+});
+const mapDispatchToProps = {
+    getProductList
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProductsFeatured);

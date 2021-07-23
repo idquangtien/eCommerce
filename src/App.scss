@@ -15,9 +15,11 @@
     --ff1: 'Nunito';
     --ff2: 'Anton';
     --ff3: 'Pacifico';
+    --icon: "Font Awesome 5 Free";
 
     --br1: 0.5rem; 
 }
+$primary: var(--primary);
 *, *:before, *::after {
     box-sizing: inherit;
     padding: 0;
@@ -180,8 +182,8 @@ textarea.form-control {
 }
 .select:after {
     content: "\f107";
-    font-family: "Font Awesome 5 Free"; 
-    font-weight: 900;
+    font-family: var(--icon); 
+    font-weight: bold;
     
     position: absolute;
     right: 0;
@@ -321,6 +323,60 @@ textarea.form-control {
 .section--checkout {
     background-color: white;
 }
+
+.loading {
+    z-index: 100;
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    width: 100vw;
+    height: 100vh;
+
+    display: none;
+
+    background-color: rgba(turquoise,.8);
+}
+
+.loading:before {
+    content: "\f4de";
+
+    font-family: var(--icon);
+    font-size: 4rem;
+    font-weight: bold;
+
+    color: white;
+
+    animation: rollIn 1s linear 0s infinite;
+}
+.loading:after {
+    content: "loading...";
+    color: white;
+    font-size: 2rem;
+    font-weight: bold;
+    font-family: var(--ff2);
+    text-transform: uppercase;
+    margin-top: 1rem;
+    animation: tada 2s linear 0s infinite;
+}
+
+.loading.active {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+@keyframes spin {
+    from {
+        transform:rotate(0deg);
+    }
+    to {
+        transform:rotate(360deg);
+    }
+}
+
+
 .page-title {
     font-size: 4rem;
     font-family: var(--ff3);
@@ -337,7 +393,7 @@ textarea.form-control {
     transition: .5s;
 }
 .product:hover .product__image img {
-    transform: translateY(1rem) scale(1.1);
+    transform: translateY(.5rem);
 }
 .product__content {
     border-top: 4px solid var(--primary);

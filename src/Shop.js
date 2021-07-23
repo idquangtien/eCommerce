@@ -56,6 +56,8 @@ const Shop = () => {
     },[dispatch]);
     return (
         <React.Fragment>
+            <div className="loading active">
+            </div>
             <SectionHero 
                 title="Shop page" 
                 desc="description"
