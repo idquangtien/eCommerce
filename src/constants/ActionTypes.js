@@ -14,3 +14,6 @@ export const SORT_PRODUCT = "SORT_PRODUCT";
 
 export const GET_CART = "GET_CART";
 export const SET_CART = "SET_CART";
+
+export const UPDATE_EXAMPLE_DATA = "UPDATE_EXAMPLE_DATA";
+export const SUBMIT_EXAMPLE_DATA = "SUBMIT_EXAMPLE_DATA";
